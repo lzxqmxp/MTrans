@@ -27,6 +27,7 @@ public final class BaiduTranslator extends AbstractTranslator {
         super(url);
     }
 
+
     @Override
     public void setLangSupport() {
         langMap.put(LANG.ZH, "zh");

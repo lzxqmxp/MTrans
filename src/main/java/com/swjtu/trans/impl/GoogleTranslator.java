@@ -27,6 +27,7 @@ public final class GoogleTranslator extends AbstractTranslator {
 
     @Override
     public void setLangSupport() {
+        langMap.put(LANG.AUTO,"auto");
         langMap.put(LANG.ZH, "zh-CN");
         langMap.put(LANG.EN, "en");
         langMap.put(LANG.JP, "ja");
