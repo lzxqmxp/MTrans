@@ -5,10 +5,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.swjtu.lang.LANG;
 import com.swjtu.trans.AbstractTranslator;
 import org.apache.http.HttpEntity;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import javax.script.Invocable;
@@ -16,6 +21,9 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public final class GoogleTranslator extends AbstractTranslator {
     private static final String url = "https://translate.google.cn/translate_a/single";
@@ -67,10 +75,18 @@ public final class GoogleTranslator extends AbstractTranslator {
     public String query() throws Exception {
         URIBuilder uri = new URIBuilder(url);
         for (String key : formData.keySet()) {
+            if("q".equals(key)){
+                continue;
+            }
             String value = formData.get(key);
             uri.addParameter(key, value);
         }
-        HttpUriRequest request = new HttpGet(uri.toString());
+//        HttpUriRequest request = new HttpGet();
+        HttpUriRequest request = new HttpPost(uri.toString());
+//        ((HttpPost) request).setEntity(new http);
+        List<NameValuePair> params=new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("q", formData.get("q")));
+        ((HttpPost) request).setEntity(new UrlEncodedFormEntity(params,HTTP.UTF_8));
         CloseableHttpResponse response = httpClient.execute(request);
         HttpEntity entity = response.getEntity();
 
@@ -86,7 +102,15 @@ public final class GoogleTranslator extends AbstractTranslator {
     @Override
     public String parses(String text) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readTree(text).get(0).get(0).get(0).toString();
+        JsonNode jsonNode  =  mapper.readTree(text);
+        JsonNode jsonNode1 = jsonNode.get(0);
+        Iterator<JsonNode> jsonNodeIterator = jsonNode1.iterator();
+        StringBuffer sb = new StringBuffer();
+        while(jsonNodeIterator.hasNext()){
+            JsonNode node = jsonNodeIterator.next();
+            sb.append(node.get(0));
+        }
+        return sb.toString();
     }
 
     private String token(String text) {

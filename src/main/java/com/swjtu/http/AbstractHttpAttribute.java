@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public abstract class AbstractHttpAttribute {
     public String url;
-    public Map<String, String> formData;
+    public Map<String, String>  formData;
     public Map<LANG, String> langMap;
     public CloseableHttpClient httpClient;
 
