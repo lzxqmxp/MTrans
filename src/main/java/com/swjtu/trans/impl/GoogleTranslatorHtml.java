@@ -24,7 +24,7 @@ import java.util.List;
 
 public final class GoogleTranslatorHtml extends AbstractTranslator {
     private static final String url = "https://translate.googleapis.com/translate_a/t";
-
+    private static int s = 0;
     public GoogleTranslatorHtml(){
         super(url);
     }
@@ -51,8 +51,6 @@ public final class GoogleTranslatorHtml extends AbstractTranslator {
         formData.put("v", "1.0");
         formData.put("key", "AIzaSyBOti4mM-6x9WDnZIjIeyEU21OpBXqWBgw");
         formData.put("logld", "vTE_20180625_00");
-
-
         formData.put("sl", langMap.get(from));
         formData.put("tl", langMap.get(to));
         formData.put("sp", "nmt");
@@ -70,10 +68,16 @@ public final class GoogleTranslatorHtml extends AbstractTranslator {
             if("q".equals(key)){
                 continue;
             }
+            //对参数序列进行序列化提交
+            if("tc".equals(key)){
+                formData.put(key,String.valueOf(s++));
+                System.out.println(s);
+
+            }
             String value = formData.get(key);
             uri.addParameter(key, value);
         }
-//        HttpUriRequest request = new HttpGet();
+//      HttpUriRequest request = new HttpGet();
         HttpUriRequest request = new HttpPost(uri.toString());
         request.setHeader("Content-Type","application/x-www-form-urlencoded");
         request.setHeader("DNT","1");
