@@ -45,7 +45,7 @@ public final class GoogleTranslatorHtml extends AbstractTranslator {
     @Override
     public void setFormData(LANG from, LANG to, String text) {
         formData.put("anno","3");
-//        formData.put("client", "te_lib");
+//      formData.put("client", "te_lib");
         formData.put("client", "t");
         formData.put("format", "html");
         formData.put("v", "1.0");
@@ -59,6 +59,7 @@ public final class GoogleTranslatorHtml extends AbstractTranslator {
         formData.put("mode", "2");
         formData.put("tk", token(text));
         formData.put("q", text);
+
     }
 
     @Override
