@@ -45,7 +45,9 @@ public final class GoogleTranslatorHtml extends AbstractTranslator {
     @Override
     public void setFormData(LANG from, LANG to, String text) {
         formData.put("anno","3");
-//      formData.put("client", "te_lib");
+        //当前client 可以用于后期制作同译使用，原文后面，紧跟译文
+//        formData.put("client", "te_lib");
+        //当前client 可直接返回译文
         formData.put("client", "t");
         formData.put("format", "html");
         formData.put("v", "1.0");
