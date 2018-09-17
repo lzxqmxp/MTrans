@@ -7,6 +7,7 @@
   <groupId>com.swjtu</groupId>
   <artifactId>MTrans</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
 
   <name>MTrans</name>
   <!-- FIXME change it to the project's website -->
@@ -42,6 +43,11 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>3.8</version>
+    </dependency>
+    <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-all</artifactId>
+      <version>4.1.13</version>
     </dependency>
 
   </dependencies>

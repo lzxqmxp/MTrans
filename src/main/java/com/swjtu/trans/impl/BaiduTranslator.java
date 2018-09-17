@@ -1,11 +1,9 @@
 package com.swjtu.trans.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.swjtu.lang.LANG;
 import com.swjtu.trans.AbstractTranslator;
 import com.swjtu.util.Util;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -30,6 +28,7 @@ public final class BaiduTranslator extends AbstractTranslator {
 
     @Override
     public void setLangSupport() {
+        langMap.put(LANG.AUTO, "auto");
         langMap.put(LANG.ZH, "zh");
         langMap.put(LANG.EN, "en");
         langMap.put(LANG.JP, "jp");

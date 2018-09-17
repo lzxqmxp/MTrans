@@ -5,6 +5,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
@@ -22,13 +23,17 @@ public abstract class AbstractHttpAttribute {
     public Map<String, String>  formData;
     public Map<LANG, String> langMap;
     public CloseableHttpClient httpClient;
+    private PoolingHttpClientConnectionManager pccm;
 
     public AbstractHttpAttribute(String url) {
+        this .pccm = new PoolingHttpClientConnectionManager();
         this.url = url;
         this.formData = new HashMap<>();
         this.langMap = new HashMap<>();
-        this.httpClient = HttpClients.createDefault();
+//        this.httpClient = HttpClients.createDefault();
+        this.httpClient = HttpClients.custom().setConnectionManager(pccm).setConnectionManagerShared(true).build();
     }
+
 
     /**
      * Execute the translation or TTS task (send a POST or GET request to the server),
