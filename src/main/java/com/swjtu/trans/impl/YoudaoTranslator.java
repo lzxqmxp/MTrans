@@ -22,6 +22,7 @@ public final class YoudaoTranslator extends AbstractTranslator {
     @Override
     public void setLangSupport() {
         langMap.put(LANG.ZH, "zh-CHS");
+        langMap.put(LANG.AUTO, "AUTO");
         langMap.put(LANG.EN, "en");
         langMap.put(LANG.JP, "ja");
         langMap.put(LANG.KOR, "ko");
