@@ -4,6 +4,7 @@ import com.swjtu.lang.LANG;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
@@ -31,7 +32,8 @@ public abstract class AbstractHttpAttribute {
         this.formData = new HashMap<>();
         this.langMap = new HashMap<>();
 //        this.httpClient = HttpClients.createDefault();
-        this.httpClient = HttpClients.custom().setConnectionManager(pccm).setConnectionManagerShared(true).build();
+        this.httpClient = HttpClients.custom().setConnectionManager(pccm).setConnectionManagerShared(true).setRetryHandler(new DefaultHttpRequestRetryHandler(0,false)).build();
+
     }
 
 

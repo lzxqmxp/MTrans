@@ -48,4 +48,8 @@ public final class Querier<T extends AbstractHttpAttribute> {
     public void detach(T element) {
         collection.remove(element);
     }
+
+    public Integer getSize(){
+        return this.collection.size();
+    }
 }
